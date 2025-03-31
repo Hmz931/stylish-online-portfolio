@@ -1,6 +1,8 @@
-import { useLanguage } from '@/contexts/LanguageContext';
+
+import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Building2, GraduationCap } from 'lucide-react';
 
 interface TimelineItemProps {
@@ -73,6 +75,7 @@ interface TimelineProps {
 }
 
 const Timeline: React.FC<TimelineProps> = ({ items, isEducation = false }) => {
+  // Array of timeline item colors
   const colors = [
     'bg-orange-400',
     'bg-rose-400',
@@ -85,14 +88,12 @@ const Timeline: React.FC<TimelineProps> = ({ items, isEducation = false }) => {
   return (
     <div className="max-w-2xl mx-auto">
       {items.map((item, index) => (
-        <div className={`flex ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
-          <TimelineItem 
-            key={index}
-            {...item}
-            isEducation={isEducation}
-            color={colors[index % colors.length]}
-          />
-        </div>
+        <TimelineItem 
+          key={index}
+          {...item}
+          isEducation={isEducation}
+          color={colors[index % colors.length]}
+        />
       ))}
     </div>
   );
