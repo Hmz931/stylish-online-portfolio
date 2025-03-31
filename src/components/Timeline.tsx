@@ -86,7 +86,7 @@ const Timeline: React.FC<TimelineProps> = ({ items, isEducation = false }) => {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-2xl mx-auto">
       {items.map((item, index) => (
         <TimelineItem 
           key={index}

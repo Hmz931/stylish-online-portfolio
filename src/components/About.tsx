@@ -2,6 +2,7 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const About = () => {
   const { t, language } = useLanguage();
@@ -29,14 +30,16 @@ const About = () => {
             </div>
           </div>
           
-          <div>
-            <Card className="border border-gray-200 dark:border-gray-700 shadow-md rounded-xl overflow-hidden hover:shadow-lg transition-shadow">
+          <div className="flex justify-center">
+            <Card className="border border-gray-200 dark:border-gray-700 shadow-md rounded-xl overflow-hidden hover:shadow-lg transition-shadow w-full max-w-xs">
               <CardContent className="p-0">
-                <img
-                  src="/lovable-uploads/DSC_E0040.jpg"
-                  alt="Hamza Bouguerra"
-                  className="w-full h-auto"
-                />
+                <a href="https://github.com/hamzabouguerra" target="_blank" rel="noopener noreferrer" className="block">
+                  <img
+                    src="https://avatars.githubusercontent.com/u/5649277?v=4"
+                    alt="Hamza Bouguerra"
+                    className="w-full h-auto object-cover"
+                  />
+                </a>
               </CardContent>
             </Card>
           </div>

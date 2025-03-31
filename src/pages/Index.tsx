@@ -12,7 +12,7 @@ import Footer from '@/components/Footer';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
 
-// Google Analytics script
+// Déplacer le script Google Analytics vers un composant séparé
 const GoogleAnalytics = () => {
   return (
     <>
@@ -45,8 +45,12 @@ const Index = () => {
       <Header />
       <Hero />
       <About />
-      <Experience />
-      <Education />
+      <main className="bg-gray-50 dark:bg-gray-900">
+        <div className="container mx-auto">
+          <Experience />
+          <Education />
+        </div>
+      </main>
       <Skills />
       <Projects />
       <Contact />
