@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
@@ -12,7 +11,6 @@ import Footer from '@/components/Footer';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
 
-// Déplacer le script Google Analytics vers un composant séparé
 const GoogleAnalytics = () => {
   return (
     <>
@@ -33,11 +31,16 @@ const Index = () => {
   const { language } = useLanguage();
   const { theme } = useTheme();
   
-  // Add RTL support for Arabic
   useEffect(() => {
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = language;
   }, [language]);
+
+  const timelineItems = [
+    ...experiences,
+    ...education,
+    ...certifications
+  ];
 
   return (
     <div className={`min-h-screen ${language === 'ar' ? 'font-arabic' : ''} ${theme === 'dark' ? 'dark' : ''}`}>
@@ -47,8 +50,8 @@ const Index = () => {
       <About />
       <main className="bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto">
-          <Experience />
-          <Education />
+          <h2 className="section-title dark:text-white">Timeline</h2>
+          <Timeline items={timelineItems} />
         </div>
       </main>
       <Skills />
