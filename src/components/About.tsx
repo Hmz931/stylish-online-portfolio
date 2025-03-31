@@ -33,7 +33,7 @@ const About = () => {
           <div className="flex justify-center">
             <Card className="border border-gray-200 dark:border-gray-700 shadow-md rounded-xl overflow-hidden hover:shadow-lg transition-shadow w-full max-w-xs">
               <CardContent className="p-0">
-                <a href="https://github.com/hamzabouguerra" target="_blank" rel="noopener noreferrer" className="block">
+                <a href="https://github.com/Hmz931" target="_blank" rel="noopener noreferrer" className="block">
                   <img
                     src="https://avatars.githubusercontent.com/u/5649277?v=4"
                     alt="Hamza Bouguerra"
