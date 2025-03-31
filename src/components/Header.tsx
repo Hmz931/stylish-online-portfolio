@@ -1,19 +1,22 @@
 
 import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Twitter, Mail, Menu, X, Globe } from 'lucide-react';
+import { Github, Linkedin, Twitter, Mail, Menu, X, Globe, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage, Language } from '@/contexts/LanguageContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Switch } from "@/components/ui/switch";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -50,7 +53,7 @@ const Header = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 shadow-md backdrop-blur-sm' : 'bg-transparent'} ${language === 'ar' ? 'rtl' : 'ltr'}`}>
+    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-background/90 shadow-md backdrop-blur-sm' : 'bg-transparent'} ${language === 'ar' ? 'rtl' : 'ltr'}`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <a href="#home" className="text-2xl font-bold text-primary">HB.</a>
@@ -68,7 +71,7 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Desktop: Language selector and social icons */}
+          {/* Desktop: Language selector, theme toggle and social icons */}
           <div className="hidden md:flex items-center space-x-4">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -90,6 +93,16 @@ const Header = () => {
               </DropdownMenuContent>
             </DropdownMenu>
             
+            {/* Theme toggle */}
+            <Button variant="ghost" size="icon" onClick={toggleTheme} className="rounded-full">
+              {theme === 'dark' ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )}
+              <span className="sr-only">Toggle theme</span>
+            </Button>
+            
             {socialLinks.map((link, index) => (
               <a
                 key={index}
@@ -97,7 +110,7 @@ const Header = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={link.ariaLabel}
-                className="text-gray-600 hover:text-primary transition-colors"
+                className="text-gray-600 hover:text-primary transition-colors dark:text-gray-300"
               >
                 {link.icon}
               </a>
@@ -116,22 +129,33 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden bg-white border-t border-gray-100">
+          <div className="md:hidden bg-background border-t border-gray-100 dark:border-gray-800">
             <nav className="flex flex-col py-4">
               {navLinks.map((link, index) => (
                 <a
                   key={index}
                   href={link.href}
-                  className="px-4 py-3 text-foreground hover:bg-gray-50"
+                  className="px-4 py-3 text-foreground hover:bg-gray-50 dark:hover:bg-gray-800"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.title}
                 </a>
               ))}
               
+              {/* Mobile: Theme toggle */}
+              <div className="px-4 py-3 border-t border-gray-100 dark:border-gray-800">
+                <div className="flex justify-between items-center">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{theme === 'dark' ? t('header.darkMode') : t('header.lightMode')}</p>
+                  <Switch 
+                    checked={theme === 'dark'}
+                    onCheckedChange={toggleTheme}
+                  />
+                </div>
+              </div>
+              
               {/* Mobile: Language selector */}
-              <div className="px-4 py-3 border-t border-gray-100">
-                <p className="text-sm text-gray-500 mb-2">Language</p>
+              <div className="px-4 py-3 border-t border-gray-100 dark:border-gray-800">
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Language</p>
                 <div className="flex space-x-4">
                   {languageOptions.map((option) => (
                     <button
@@ -140,7 +164,7 @@ const Header = () => {
                         setLanguage(option.code as Language);
                         setIsOpen(false);
                       }}
-                      className={`text-sm ${language === option.code ? 'text-primary font-medium' : 'text-gray-600'}`}
+                      className={`text-sm ${language === option.code ? 'text-primary font-medium' : 'text-gray-600 dark:text-gray-400'}`}
                     >
                       {option.label}
                     </button>
@@ -149,7 +173,7 @@ const Header = () => {
               </div>
               
               {/* Mobile: Social links */}
-              <div className="flex space-x-4 px-4 py-3 border-t border-gray-100">
+              <div className="flex space-x-4 px-4 py-3 border-t border-gray-100 dark:border-gray-800">
                 {socialLinks.map((link, index) => (
                   <a
                     key={index}
@@ -157,7 +181,7 @@ const Header = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={link.ariaLabel}
-                    className="text-gray-600 hover:text-primary"
+                    className="text-gray-600 hover:text-primary dark:text-gray-400"
                   >
                     {link.icon}
                   </a>

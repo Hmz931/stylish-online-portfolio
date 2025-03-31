@@ -10,9 +10,11 @@ import Projects from '@/components/Projects';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import { useLanguage, Language } from '@/contexts/LanguageContext';
+import { useTheme } from '@/contexts/ThemeContext';
 
 const Index = () => {
   const { language } = useLanguage();
+  const { theme } = useTheme();
   
   // Add RTL support for Arabic
   useEffect(() => {
@@ -21,7 +23,7 @@ const Index = () => {
   }, [language]);
 
   return (
-    <div className={`min-h-screen ${language === 'ar' ? 'font-arabic' : ''}`}>
+    <div className={`min-h-screen ${language === 'ar' ? 'font-arabic' : ''} ${theme === 'dark' ? 'dark' : ''}`}>
       <Header />
       <Hero />
       <About />

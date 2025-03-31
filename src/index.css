@@ -80,6 +80,11 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-poppins font-semibold;
   }
+
+  /* Fix for mobile scrolling issues */
+  html, body {
+    @apply h-full w-full overflow-x-hidden;
+  }
 }
 
 @layer utilities {
@@ -98,4 +103,27 @@
   .transition-all-300 {
     @apply transition-all duration-300 ease-in-out;
   }
+}
+
+/* Timeline animations */
+.timeline-dot {
+  @apply absolute left-0 top-7 w-4 h-4 rounded-full bg-primary border-4 border-white dark:border-gray-800 z-10;
+}
+
+.timeline-line {
+  @apply absolute left-[7px] top-0 w-0.5 h-full bg-gray-200 dark:bg-gray-700;
+}
+
+/* Ensure proper spacing for RTL layouts */
+.rtl .timeline-dot {
+  @apply left-auto right-0;
+}
+
+.rtl .timeline-line {
+  @apply left-auto right-[7px];
+}
+
+/* Dark mode transitions */
+.dark-transition {
+  @apply transition-colors duration-300;
 }

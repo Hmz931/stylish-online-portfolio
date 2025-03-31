@@ -1,118 +1,68 @@
 
 import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useLanguage } from '@/contexts/LanguageContext';
 
-interface SkillItemProps {
-  name: string;
-  level: number;
-}
-
-const SkillItem: React.FC<SkillItemProps> = ({ name, level }) => {
+const SkillCard = ({ title, skills }: { title: string; skills: string[] }) => {
+  const { language } = useLanguage();
+  
   return (
-    <div className="mb-4">
-      <div className="flex justify-between mb-1">
-        <span className="text-gray-700 font-medium">{name}</span>
-        <span className="text-gray-500 text-sm">{level}%</span>
-      </div>
-      <Progress value={level} className="h-2" />
-    </div>
+    <Card className="border border-gray-200 dark:border-gray-700">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-xl dark:text-white">{title}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className={`flex flex-wrap gap-2 ${language === 'ar' ? 'justify-end' : ''}`}>
+          {skills.map((skill, index) => (
+            <Badge key={index} variant="secondary" className="text-sm py-1 px-3">
+              {skill}
+            </Badge>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 
 const Skills = () => {
-  const programmingSkills = [
-    { name: "R", level: 90 },
-    { name: "MATLAB", level: 85 },
-    { name: "Python", level: 70 },
-    { name: "JavaScript", level: 65 },
-    { name: "STATA", level: 60 },
-    { name: "LATEX", level: 60 },
-    { name: "OxMetrics", level: 55 },
-    { name: "Java", level: 40 },
-    { name: "VBA", level: 40 },
-  ];
-
-  const softwareSkills = [
-    { name: "ERP Abacus", level: 90 },
-    { name: "Crésus accounting", level: 85 },
-    { name: "Excel/Office", level: 85 },
-    { name: "Yooz platform", level: 80 },
-    { name: "SPSS", level: 70 },
-    { name: "Tanagra", level: 65 },
-  ];
-
-  const professionalSkills = [
-    { name: "Accounting", level: 90 },
-    { name: "Financial Analysis", level: 85 },
-    { name: "Data Analysis", level: 80 },
-    { name: "Process Automation", level: 75 },
-    { name: "Econometric Modeling", level: 85 },
-    { name: "Web Development", level: 60 },
+  const { t, language } = useLanguage();
+  
+  // Skills grouped by category
+  const skillGroups = [
+    {
+      title: t('skills.software'),
+      skills: ['ERP Abacus', 'Crésus', 'Excel/Office', 'Yooz', 'SPSS', 'Tanagra', 'Power BI']
+    },
+    {
+      title: t('skills.programming'),
+      skills: ['R', 'MATLAB', 'Python', 'JavaScript', 'TypeScript', 'STATA', 'LATEX', 'OxMetrics']
+    },
+    {
+      title: t('skills.webDevelopment'),
+      skills: ['HTML', 'CSS', 'React', 'Node.js', 'Tailwind CSS', 'Git', 'GitHub']
+    },
+    {
+      title: t('skills.dataAnalysis'),
+      skills: ['Statistical Analysis', 'Data Visualization', 'Financial Modeling', 'Econometrics', 'Time Series Analysis']
+    }
   ];
 
   return (
-    <section id="skills" className="section-padding bg-gray-50">
+    <section id="skills" className={`section-padding bg-gray-50 dark:bg-gray-900 ${language === 'ar' ? 'rtl' : 'ltr'}`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="section-title">Skills</h2>
+        <h2 className="section-title dark:text-white">{t('skills.title')}</h2>
         
-        <div className="max-w-4xl mx-auto">
-          <Tabs defaultValue="professional" className="w-full">
-            <TabsList className="grid grid-cols-3 mb-8">
-              <TabsTrigger value="professional">Professional</TabsTrigger>
-              <TabsTrigger value="programming">Programming</TabsTrigger>
-              <TabsTrigger value="software">Software</TabsTrigger>
-            </TabsList>
-            
-            <TabsContent value="professional">
-              <Card>
-                <CardContent className="p-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {professionalSkills.map((skill, index) => (
-                      <SkillItem 
-                        key={index} 
-                        name={skill.name} 
-                        level={skill.level} 
-                      />
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-            
-            <TabsContent value="programming">
-              <Card>
-                <CardContent className="p-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {programmingSkills.map((skill, index) => (
-                      <SkillItem 
-                        key={index} 
-                        name={skill.name} 
-                        level={skill.level} 
-                      />
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-            
-            <TabsContent value="software">
-              <Card>
-                <CardContent className="p-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {softwareSkills.map((skill, index) => (
-                      <SkillItem 
-                        key={index} 
-                        name={skill.name} 
-                        level={skill.level} 
-                      />
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {skillGroups.map((group, index) => (
+            <SkillCard key={index} title={group.title} skills={group.skills} />
+          ))}
+        </div>
+        
+        <div className="mt-12 max-w-3xl mx-auto text-center">
+          <p className="text-gray-600 dark:text-gray-400 italic">
+            {t('skills.continuousLearning')}
+          </p>
         </div>
       </div>
     </section>
