@@ -31,7 +31,7 @@ const Hero = () => {
           <div className="order-1 md:order-2 flex justify-center md:justify-end animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <div className="w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-8 border-white dark:border-gray-700 shadow-xl">
               <img
-                src="/lovable-uploads/hamzap3-min.jpg"
+                src="https://avatars.githubusercontent.com/u/47541283?s=400&u=788a85f9f63abfd03210c2ebfb30b0bb11c95954&v=4"
                 alt="Hamza Bouguerra"
                 className="w-full h-full object-cover"
               />
