@@ -2,6 +2,7 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { ExternalLink } from 'lucide-react';
 import Timeline from './Timeline';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -25,8 +26,9 @@ const CertificationItem: React.FC<CertificationItemProps> = ({
           <div>
             <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{title}</h3>
             <p className="text-gray-600 dark:text-gray-400">
-              <a href={url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+              <a href={url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline inline-flex items-center gap-1">
                 {organization}
+                <ExternalLink className="h-4 w-4" />
               </a>
             </p>
           </div>

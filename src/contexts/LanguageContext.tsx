@@ -30,7 +30,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Hero
     'hero.greeting': 'Bonjour, je suis',
-    'hero.description': 'Comptable avec expertise en finance et programmation. Passionné par le développement de solutions qui font le pont entre l\'analyse financière et la technologie.',
+    'hero.description': 'Comptable avec des compétences en finance et programmation. Passionné par le développement de solutions qui font le pont entre l\'analyse financière et la technologie.',
     'hero.contactButton': 'Me Contacter',
     'hero.learnMoreButton': 'En Savoir Plus',
     
@@ -165,7 +165,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Hero
     'hero.greeting': 'Hello, I\'m',
-    'hero.description': 'Accountant with expertise in both finance and programming. Passionate about bridging the gap between financial analysis and technology.',
+    'hero.description': 'Accountant with skills in both finance and programming. Passionate about bridging the gap between financial analysis and technology.',
     'hero.contactButton': 'Contact Me',
     'hero.learnMoreButton': 'Learn More',
     
@@ -300,7 +300,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Hero
     'hero.greeting': 'مرحباً، أنا',
-    'hero.description': 'محاسب ذو خبرة في المالية والبرمجة. شغوف بالجمع بين التحليل المالي والتكنولوجيا.',
+    'hero.description': 'محاسب لديه مهارات في المالية والبرمجة. شغوف بالجمع بين التحليل المالي والتكنولوجيا.',
     'hero.contactButton': 'اتصل بي',
     'hero.learnMoreButton': 'اعرف المزيد',
     

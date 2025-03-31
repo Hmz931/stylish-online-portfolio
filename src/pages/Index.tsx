@@ -9,8 +9,25 @@ import Skills from '@/components/Skills';
 import Projects from '@/components/Projects';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
-import { useLanguage, Language } from '@/contexts/LanguageContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
+
+// Google Analytics script
+const GoogleAnalytics = () => {
+  return (
+    <>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR-MEASUREMENT-ID"></script>
+      <script dangerouslySetInnerHTML={{
+        __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-YOUR-MEASUREMENT-ID');
+        `
+      }}></script>
+    </>
+  );
+};
 
 const Index = () => {
   const { language } = useLanguage();
@@ -24,6 +41,7 @@ const Index = () => {
 
   return (
     <div className={`min-h-screen ${language === 'ar' ? 'font-arabic' : ''} ${theme === 'dark' ? 'dark' : ''}`}>
+      <GoogleAnalytics />
       <Header />
       <Hero />
       <About />

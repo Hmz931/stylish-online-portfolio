@@ -3,6 +3,7 @@ import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Building2, GraduationCap } from 'lucide-react';
 
 interface TimelineItemProps {
   title: string;
@@ -11,6 +12,7 @@ interface TimelineItemProps {
   location: string;
   description?: string[];
   isEducation?: boolean;
+  color?: string;
 }
 
 export const TimelineItem: React.FC<TimelineItemProps> = ({
@@ -19,26 +21,39 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
   period,
   location,
   description,
-  isEducation
+  isEducation,
+  color = 'bg-primary'
 }) => {
   const { language } = useLanguage();
   
   return (
-    <div className="relative pl-8 sm:pl-10 pb-10 group">
+    <div className="relative pl-10 sm:pl-12 pb-10 group">
       {/* Timeline line */}
-      <div className="absolute left-0 top-0 w-1 h-full bg-gray-200 dark:bg-gray-700 group-last:h-1/2"></div>
+      <div className={`absolute left-3 top-0 w-1 h-full ${color} opacity-60 group-last:h-1/2`}></div>
       
-      {/* Timeline dot */}
-      <div className="absolute left-[-8px] sm:left-[-5px] top-7 w-4 h-4 rounded-full bg-primary border-4 border-background dark:border-gray-900"></div>
+      {/* Timeline dot with icon */}
+      <div className={`absolute left-0 top-7 w-7 h-7 rounded-full ${color} flex items-center justify-center border-4 border-background dark:border-gray-900`}>
+        {isEducation ? (
+          <GraduationCap className="w-3 h-3 text-white" />
+        ) : (
+          <Building2 className="w-3 h-3 text-white" />
+        )}
+      </div>
       
-      <Card className="border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+      {/* Year or period badge - positioned on the left */}
+      <div className="absolute left-12 top-7">
+        <Badge variant="outline" className={`${color} text-white font-bold py-1 px-3 rounded-full`}>
+          {period}
+        </Badge>
+      </div>
+      
+      <Card className="border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow ml-16">
         <CardContent className="p-6">
           <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
             <div className={`${language === 'ar' ? 'text-right' : ''}`}>
               <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{title}</h3>
               <p className="text-gray-600 dark:text-gray-400">{subtitle} | {location}</p>
             </div>
-            <Badge variant="outline" className="mt-2 md:mt-0 w-fit">{period}</Badge>
           </div>
           
           {description && description.length > 0 && (
@@ -60,6 +75,16 @@ interface TimelineProps {
 }
 
 const Timeline: React.FC<TimelineProps> = ({ items, isEducation = false }) => {
+  // Array of timeline item colors
+  const colors = [
+    'bg-orange-400',
+    'bg-rose-400',
+    'bg-rose-600',
+    'bg-green-400',
+    'bg-blue-400',
+    'bg-cyan-400'
+  ];
+
   return (
     <div className="max-w-4xl mx-auto">
       {items.map((item, index) => (
@@ -67,6 +92,7 @@ const Timeline: React.FC<TimelineProps> = ({ items, isEducation = false }) => {
           key={index}
           {...item}
           isEducation={isEducation}
+          color={colors[index % colors.length]}
         />
       ))}
     </div>
