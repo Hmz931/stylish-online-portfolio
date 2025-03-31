@@ -15,7 +15,7 @@ const Projects = () => {
       description: t('projects.portfolioDesc'),
       image: '/placeholder.svg',
       liveUrl: 'https://hamza-bouguerra.netlify.app/',
-      githubUrl: 'https://github.com/Hmz931/personal-portfolio',
+      githubUrl: 'https://github.com/Hmz931/stylish-online-portfolio',
       technologies: ['React', 'TypeScript', 'Tailwind CSS'],
     },
     // Add more projects as they come
