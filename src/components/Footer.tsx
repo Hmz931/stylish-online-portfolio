@@ -1,15 +1,17 @@
 
 import React from 'react';
 import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { t, language } = useLanguage();
   
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className={`bg-gray-900 text-white ${language === 'ar' ? 'rtl' : 'ltr'}`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-6 md:mb-0">
+          <div className={`mb-6 md:mb-0 ${language === 'ar' ? 'text-right' : ''}`}>
             <h2 className="text-2xl font-bold">Hamza Bouguerra</h2>
             <p className="text-gray-400 mt-2">Accountant | Developer | Finance Expert</p>
           </div>
@@ -53,28 +55,28 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 text-sm">&copy; {currentYear} Hamza Bouguerra. All rights reserved.</p>
+          <p className="text-gray-400 text-sm">&copy; {currentYear} Hamza Bouguerra. {t('footer.rights')}</p>
           
           <nav className="mt-4 md:mt-0">
             <ul className="flex space-x-6">
               <li>
                 <a href="#home" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  Home
+                  {t('nav.home')}
                 </a>
               </li>
               <li>
                 <a href="#about" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  About
+                  {t('nav.about')}
                 </a>
               </li>
               <li>
                 <a href="#experience" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  Experience
+                  {t('nav.experience')}
                 </a>
               </li>
               <li>
                 <a href="#contact" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  Contact
+                  {t('nav.contact')}
                 </a>
               </li>
             </ul>

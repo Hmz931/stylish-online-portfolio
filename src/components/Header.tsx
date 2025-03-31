@@ -1,11 +1,19 @@
 
 import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Twitter, Mail, Menu, X } from 'lucide-react';
+import { Github, Linkedin, Twitter, Mail, Menu, X, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useLanguage, Language } from '@/contexts/LanguageContext';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -17,13 +25,15 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Update nav links with translations
   const navLinks = [
-    { title: 'Home', href: '#home' },
-    { title: 'About', href: '#about' },
-    { title: 'Experience', href: '#experience' },
-    { title: 'Education', href: '#education' },
-    { title: 'Skills', href: '#skills' },
-    { title: 'Contact', href: '#contact' },
+    { title: t('nav.home'), href: '#home' },
+    { title: t('nav.about'), href: '#about' },
+    { title: t('nav.experience'), href: '#experience' },
+    { title: t('nav.education'), href: '#education' },
+    { title: t('nav.skills'), href: '#skills' },
+    { title: t('nav.projects'), href: '#projects' },
+    { title: t('nav.contact'), href: '#contact' },
   ];
 
   const socialLinks = [
@@ -32,9 +42,15 @@ const Header = () => {
     { icon: <Twitter className="h-5 w-5" />, href: 'https://twitter.com/hmz931', ariaLabel: 'Twitter' },
     { icon: <Mail className="h-5 w-5" />, href: 'mailto:hamza93bouguerra@gmail.com', ariaLabel: 'Email' },
   ];
+  
+  const languageOptions = [
+    { code: 'fr', label: 'Français' },
+    { code: 'en', label: 'English' },
+    { code: 'ar', label: 'العربية' }
+  ];
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 shadow-md backdrop-blur-sm' : 'bg-transparent'}`}>
+    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 shadow-md backdrop-blur-sm' : 'bg-transparent'} ${language === 'ar' ? 'rtl' : 'ltr'}`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <a href="#home" className="text-2xl font-bold text-primary">HB.</a>
@@ -52,8 +68,28 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Social Icons - Desktop */}
+          {/* Desktop: Language selector and social icons */}
           <div className="hidden md:flex items-center space-x-4">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Globe className="h-5 w-5" />
+                  <span className="sr-only">Change language</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {languageOptions.map((option) => (
+                  <DropdownMenuItem 
+                    key={option.code}
+                    onClick={() => setLanguage(option.code as Language)}
+                    className={language === option.code ? "bg-muted" : ""}
+                  >
+                    {option.label}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+            
             {socialLinks.map((link, index) => (
               <a
                 key={index}
@@ -92,6 +128,27 @@ const Header = () => {
                   {link.title}
                 </a>
               ))}
+              
+              {/* Mobile: Language selector */}
+              <div className="px-4 py-3 border-t border-gray-100">
+                <p className="text-sm text-gray-500 mb-2">Language</p>
+                <div className="flex space-x-4">
+                  {languageOptions.map((option) => (
+                    <button
+                      key={option.code}
+                      onClick={() => {
+                        setLanguage(option.code as Language);
+                        setIsOpen(false);
+                      }}
+                      className={`text-sm ${language === option.code ? 'text-primary font-medium' : 'text-gray-600'}`}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Mobile: Social links */}
               <div className="flex space-x-4 px-4 py-3 border-t border-gray-100">
                 {socialLinks.map((link, index) => (
                   <a
