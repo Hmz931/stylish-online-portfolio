@@ -8,6 +8,7 @@ import Skills from '@/components/Skills';
 import Projects from '@/components/Projects';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
+import Timeline from '@/components/Timeline';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
 
@@ -35,6 +36,41 @@ const Index = () => {
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = language;
   }, [language]);
+
+  const experiences = [
+    {
+      title: 'Job 1',
+      subtitle: 'Company 1',
+      period: '2020 - 2023',
+      location: 'Location 1',
+      description: [
+        'Task 1',
+        'Task 2',
+        'Task 3'
+      ]
+    },
+    // Add more experiences here
+  ];
+
+  const education = [
+    {
+      title: 'Degree 1',
+      subtitle: 'Institution 1',
+      period: '2015 - 2019',
+      location: 'Location 1'
+    },
+    // Add more education here
+  ];
+
+  const certifications = [
+    {
+      title: 'Certification 1',
+      organization: 'Organization 1',
+      date: '2023',
+      url: 'https://linktocertification.com'
+    },
+    // Add more certifications here
+  ];
 
   const timelineItems = [
     ...experiences,
