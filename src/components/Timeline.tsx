@@ -42,7 +42,7 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
   };
 
   return (
-    <div className="relative pb-16 group">
+    <div className="relative pb-20 group">
       {/* Timeline center line */}
       <div className={`absolute left-1/2 top-0 w-1 h-full -ml-0.5 ${color} opacity-60 group-last:h-1/2`}></div>
       
@@ -52,7 +52,7 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
       </div>
       
       {/* Content */}
-      <div className={`flex ${position === 'left' ? 'justify-end' : 'justify-start'} items-start`}>
+      <div className={`flex ${position === 'left' ? 'justify-end' : 'justify-start'} items-start w-full`}>
         {position === 'left' ? (
           <>
             {/* Left positioned content */}
@@ -62,10 +62,8 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
                   <div className="flex flex-col mb-4">
                     <div className={`text-right ${language === 'ar' ? 'text-left' : ''}`}>
                       <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{title}</h3>
-                      <p className="text-gray-600 dark:text-gray-400">{subtitle} | {location}</p>
-                      <Badge variant="outline" className={`${color} text-white font-bold py-1 px-3 rounded-full mt-2`}>
-                        {period}
-                      </Badge>
+                      <p className="text-gray-600 dark:text-gray-400">{subtitle} {location && `| ${location}`}</p>
+                      <Badge variant="outline" className="mt-2 bg-opacity-80 text-white" style={{backgroundColor: color.replace('bg-', '')}}>{period}</Badge>
                     </div>
                   </div>
                   
@@ -93,10 +91,8 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
                   <div className="flex flex-col mb-4">
                     <div className={`${language === 'ar' ? 'text-right' : ''}`}>
                       <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{title}</h3>
-                      <p className="text-gray-600 dark:text-gray-400">{subtitle} | {location}</p>
-                      <Badge variant="outline" className={`${color} text-white font-bold py-1 px-3 rounded-full mt-2`}>
-                        {period}
-                      </Badge>
+                      <p className="text-gray-600 dark:text-gray-400">{subtitle} {location && `| ${location}`}</p>
+                      <Badge variant="outline" className="mt-2 bg-opacity-80 text-white" style={{backgroundColor: color.replace('bg-', '')}}>{period}</Badge>
                     </div>
                   </div>
                   
@@ -122,15 +118,12 @@ interface TimelineProps {
 }
 
 const Timeline: React.FC<TimelineProps> = ({ items }) => {
-  // Array of timeline item colors
-  const colors = [
-    'bg-orange-400',
-    'bg-rose-500',
-    'bg-rose-600',
-    'bg-green-500',
-    'bg-blue-500',
-    'bg-cyan-500'
-  ];
+  // Array of timeline item colors by type
+  const typeColors = {
+    experience: 'bg-blue-500',
+    education: 'bg-green-500',
+    certification: 'bg-orange-400'
+  };
 
   // Sort items chronologically from newest to oldest
   const sortedItems = [...items].sort((a, b) => {
@@ -138,13 +131,13 @@ const Timeline: React.FC<TimelineProps> = ({ items }) => {
   });
 
   return (
-    <div className="max-w-5xl mx-auto py-8">
+    <div className="max-w-6xl mx-auto py-8">
       {sortedItems.map((item, index) => (
         <TimelineItem 
           key={index}
           {...item}
           position={index % 2 === 0 ? 'left' : 'right'}
-          color={colors[index % colors.length]}
+          color={typeColors[item.type]}
         />
       ))}
     </div>

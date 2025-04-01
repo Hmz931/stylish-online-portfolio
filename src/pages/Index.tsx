@@ -56,7 +56,7 @@ const Index = () => {
         t('experience.job1.task5')
       ],
       type: 'experience' as const,
-      date: new Date('2023-04-01') // April 2021 to present
+      date: new Date('2023-04-01') // April 2023
     },
     {
       title: t('experience.job2.title'),
