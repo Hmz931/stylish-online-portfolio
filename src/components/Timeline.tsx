@@ -42,7 +42,7 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
   };
 
   return (
-    <div className="relative pb-10 group">
+    <div className="relative pb-16 group">
       {/* Timeline center line */}
       <div className={`absolute left-1/2 top-0 w-1 h-full -ml-0.5 ${color} opacity-60 group-last:h-1/2`}></div>
       
@@ -125,20 +125,20 @@ const Timeline: React.FC<TimelineProps> = ({ items }) => {
   // Array of timeline item colors
   const colors = [
     'bg-orange-400',
-    'bg-rose-400',
+    'bg-rose-500',
     'bg-rose-600',
-    'bg-green-400',
-    'bg-blue-400',
-    'bg-cyan-400'
+    'bg-green-500',
+    'bg-blue-500',
+    'bg-cyan-500'
   ];
 
-  // Sort items chronologically
+  // Sort items chronologically from newest to oldest
   const sortedItems = [...items].sort((a, b) => {
-    return new Date(b.date).getTime() - new Date(a.date).getTime();
+    return b.date.getTime() - a.date.getTime();
   });
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-5xl mx-auto py-8">
       {sortedItems.map((item, index) => (
         <TimelineItem 
           key={index}

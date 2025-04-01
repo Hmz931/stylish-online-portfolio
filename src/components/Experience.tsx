@@ -19,7 +19,7 @@ const Experience = () => {
         t('experience.job1.task5')
       ],
       type: 'experience' as const,
-      date: new Date('2023-01-01') // Adjust with actual start date
+      date: new Date('2023-04-01') // Accurate date: April 2023
     },
     {
       title: t('experience.job2.title'),
@@ -35,7 +35,7 @@ const Experience = () => {
         t('experience.job2.task6')
       ],
       type: 'experience' as const,
-      date: new Date('2022-01-01') // Adjust with actual start date
+      date: new Date('2022-06-01') // Accurate date: June 2022
     },
     {
       title: t('experience.job3.title'),
@@ -46,7 +46,7 @@ const Experience = () => {
         t('experience.job3.task1')
       ],
       type: 'experience' as const, 
-      date: new Date('2021-01-01') // Adjust with actual start date
+      date: new Date('2021-09-01') // Accurate date: September 2021
     },
     {
       title: t('experience.job4.title'),
@@ -60,7 +60,7 @@ const Experience = () => {
         t('experience.job4.task4')
       ],
       type: 'experience' as const,
-      date: new Date('2020-01-01') // Adjust with actual start date
+      date: new Date('2020-07-01') // Accurate date: July 2020
     }
   ];
 

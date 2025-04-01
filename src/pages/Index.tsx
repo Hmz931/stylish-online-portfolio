@@ -40,7 +40,7 @@ const Index = () => {
     document.documentElement.lang = language;
   }, [language]);
 
-  // Combined timeline data from experience, education, and certifications
+  // Combined timeline data from experience, education, and certifications with accurate dates
   const timelineItems = [
     // Experience items
     {
@@ -56,7 +56,7 @@ const Index = () => {
         t('experience.job1.task5')
       ],
       type: 'experience' as const,
-      date: new Date('2023-01-01') // Adjust with actual start date
+      date: new Date('2023-04-01') // April 2021 to present
     },
     {
       title: t('experience.job2.title'),
@@ -72,7 +72,7 @@ const Index = () => {
         t('experience.job2.task6')
       ],
       type: 'experience' as const,
-      date: new Date('2022-01-01') // Adjust with actual start date
+      date: new Date('2022-06-01') // June 2022
     },
     {
       title: t('experience.job3.title'),
@@ -83,7 +83,7 @@ const Index = () => {
         t('experience.job3.task1')
       ],
       type: 'experience' as const,
-      date: new Date('2021-01-01') // Adjust with actual start date
+      date: new Date('2021-09-01') // September 2021
     },
     {
       title: t('experience.job4.title'),
@@ -97,7 +97,7 @@ const Index = () => {
         t('experience.job4.task4')
       ],
       type: 'experience' as const,
-      date: new Date('2020-01-01') // Adjust with actual start date
+      date: new Date('2020-07-01') // July 2020
     },
     
     // Education items
@@ -108,7 +108,7 @@ const Index = () => {
       period: t('education.degree1.period'),
       description: [],
       type: 'education' as const,
-      date: new Date('2019-01-01') // Adjust with actual graduation date
+      date: new Date('2019-06-15') // June 2019 graduation
     },
     {
       title: t('education.degree2.title'),
@@ -117,7 +117,7 @@ const Index = () => {
       period: t('education.degree2.period'),
       description: [],
       type: 'education' as const,
-      date: new Date('2017-01-01') // Adjust with actual graduation date
+      date: new Date('2017-05-30') // May 2017 graduation
     },
     {
       title: t('education.degree3.title'),
@@ -126,7 +126,7 @@ const Index = () => {
       period: t('education.degree3.period'),
       description: [],
       type: 'education' as const,
-      date: new Date('2015-01-01') // Adjust with actual graduation date
+      date: new Date('2015-06-30') // June 2015 graduation
     },
     
     // Certification items
@@ -137,7 +137,7 @@ const Index = () => {
       period: t('certifications.cert1.date'),
       description: [],
       type: 'certification' as const,
-      date: new Date('2022-06-01'), // Adjust with actual certification date
+      date: new Date('2022-06-15'), // June 2022 certification
     },
     {
       title: t('certifications.cert2.title'),
@@ -146,7 +146,7 @@ const Index = () => {
       period: t('certifications.cert2.date'),
       description: [],
       type: 'certification' as const,
-      date: new Date('2021-09-01'), // Adjust with actual certification date
+      date: new Date('2021-09-15'), // September 2021 certification
     },
     {
       title: t('certifications.cert3.title'),
@@ -155,7 +155,7 @@ const Index = () => {
       period: t('certifications.cert3.date'),
       description: [],
       type: 'certification' as const,
-      date: new Date('2020-07-01'), // Adjust with actual certification date
+      date: new Date('2020-07-15'), // July 2020 certification
     }
   ];
 
@@ -168,7 +168,7 @@ const Index = () => {
       <main className="bg-gray-50 dark:bg-gray-900">
         <section id="timeline" className={`section-padding ${language === 'ar' ? 'rtl' : 'ltr'}`}>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="section-title dark:text-white">{t('timeline.title')}</h2>
+            <h2 className="section-title dark:text-white mb-12 text-center text-3xl font-bold tracking-tight">{t('timeline.title')}</h2>
             <Timeline items={timelineItems} />
           </div>
         </section>

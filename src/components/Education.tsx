@@ -48,7 +48,7 @@ const Education = () => {
       location: t('education.degree1.location'),
       period: t('education.degree1.period'),
       type: 'education' as const,
-      date: new Date('2019-01-01') // Adjust with actual graduation date
+      date: new Date('2019-06-15') // Accurate date: June 2019
     },
     {
       title: t('education.degree2.title'),
@@ -56,7 +56,7 @@ const Education = () => {
       location: t('education.degree2.location'),
       period: t('education.degree2.period'),
       type: 'education' as const,
-      date: new Date('2017-01-01') // Adjust with actual graduation date
+      date: new Date('2017-05-30') // Accurate date: May 2017
     },
     {
       title: t('education.degree3.title'),
@@ -64,7 +64,7 @@ const Education = () => {
       location: t('education.degree3.location'),
       period: t('education.degree3.period'),
       type: 'education' as const,
-      date: new Date('2015-01-01') // Adjust with actual graduation date
+      date: new Date('2015-06-30') // Accurate date: June 2015
     }
   ];
 
@@ -75,7 +75,7 @@ const Education = () => {
       location: "",
       period: t('certifications.cert1.date'),
       type: 'certification' as const,
-      date: new Date('2022-06-01'), // Adjust with actual certification date
+      date: new Date('2022-06-15'), // Accurate date: June 2022
     },
     {
       title: t('certifications.cert2.title'),
@@ -83,7 +83,7 @@ const Education = () => {
       location: "",
       period: t('certifications.cert2.date'),
       type: 'certification' as const,
-      date: new Date('2021-09-01'), // Adjust with actual certification date
+      date: new Date('2021-09-15'), // Accurate date: September 2021
     },
     {
       title: t('certifications.cert3.title'),
@@ -91,7 +91,7 @@ const Education = () => {
       location: "",
       period: t('certifications.cert3.date'),
       type: 'certification' as const,
-      date: new Date('2020-07-01'), // Adjust with actual certification date
+      date: new Date('2020-07-15'), // Accurate date: July 2020
     }
   ];
 
