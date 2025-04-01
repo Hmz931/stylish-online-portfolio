@@ -3,7 +3,7 @@ import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Building2, GraduationCap } from 'lucide-react';
+import { Building2, GraduationCap, Award } from 'lucide-react';
 
 interface TimelineItemProps {
   title: string;
@@ -11,8 +11,10 @@ interface TimelineItemProps {
   period: string;
   location: string;
   description?: string[];
-  isEducation?: boolean;
+  type: 'experience' | 'education' | 'certification';
   color?: string;
+  position: 'left' | 'right';
+  date: Date; // For chronological sorting
 }
 
 export const TimelineItem: React.FC<TimelineItemProps> = ({
@@ -21,60 +23,105 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
   period,
   location,
   description,
-  isEducation,
-  color = 'bg-primary'
+  type,
+  color = 'bg-primary',
+  position
 }) => {
   const { language } = useLanguage();
   
+  // Define icon based on type
+  const getIcon = () => {
+    switch (type) {
+      case 'education':
+        return <GraduationCap className="w-3 h-3 text-white" />;
+      case 'certification':
+        return <Award className="w-3 h-3 text-white" />;
+      default:
+        return <Building2 className="w-3 h-3 text-white" />;
+    }
+  };
+
   return (
-    <div className="relative pl-10 sm:pl-12 pb-10 group">
-      {/* Timeline line */}
-      <div className={`absolute left-3 top-0 w-1 h-full ${color} opacity-60 group-last:h-1/2`}></div>
+    <div className="relative pb-10 group">
+      {/* Timeline center line */}
+      <div className={`absolute left-1/2 top-0 w-1 h-full -ml-0.5 ${color} opacity-60 group-last:h-1/2`}></div>
       
       {/* Timeline dot with icon */}
-      <div className={`absolute left-0 top-7 w-7 h-7 rounded-full ${color} flex items-center justify-center border-4 border-background dark:border-gray-900`}>
-        {isEducation ? (
-          <GraduationCap className="w-3 h-3 text-white" />
+      <div className={`absolute left-1/2 top-7 w-7 h-7 -ml-3.5 rounded-full ${color} flex items-center justify-center border-4 border-background dark:border-gray-900 z-10`}>
+        {getIcon()}
+      </div>
+      
+      {/* Content */}
+      <div className={`flex ${position === 'left' ? 'justify-end' : 'justify-start'} items-start`}>
+        {position === 'left' ? (
+          <>
+            {/* Left positioned content */}
+            <div className="w-5/12 pr-8">
+              <Card className="border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex flex-col mb-4">
+                    <div className={`text-right ${language === 'ar' ? 'text-left' : ''}`}>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{title}</h3>
+                      <p className="text-gray-600 dark:text-gray-400">{subtitle} | {location}</p>
+                      <Badge variant="outline" className={`${color} text-white font-bold py-1 px-3 rounded-full mt-2`}>
+                        {period}
+                      </Badge>
+                    </div>
+                  </div>
+                  
+                  {description && description.length > 0 && (
+                    <ul className={`list-disc pl-5 ${language === 'ar' ? 'pr-5 pl-0 text-right' : ''} space-y-2`}>
+                      {description.map((item, index) => (
+                        <li key={index} className="text-gray-700 dark:text-gray-300">{item}</li>
+                      ))}
+                    </ul>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+            {/* Empty right side */}
+            <div className="w-5/12 pl-8"></div>
+          </>
         ) : (
-          <Building2 className="w-3 h-3 text-white" />
+          <>
+            {/* Empty left side */}
+            <div className="w-5/12 pr-8"></div>
+            {/* Right positioned content */}
+            <div className="w-5/12 pl-8">
+              <Card className="border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex flex-col mb-4">
+                    <div className={`${language === 'ar' ? 'text-right' : ''}`}>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{title}</h3>
+                      <p className="text-gray-600 dark:text-gray-400">{subtitle} | {location}</p>
+                      <Badge variant="outline" className={`${color} text-white font-bold py-1 px-3 rounded-full mt-2`}>
+                        {period}
+                      </Badge>
+                    </div>
+                  </div>
+                  
+                  {description && description.length > 0 && (
+                    <ul className={`list-disc pl-5 ${language === 'ar' ? 'pr-5 pl-0 text-right' : ''} space-y-2`}>
+                      {description.map((item, index) => (
+                        <li key={index} className="text-gray-700 dark:text-gray-300">{item}</li>
+                      ))}
+                    </ul>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          </>
         )}
       </div>
-      
-      {/* Year or period badge - positioned on the left */}
-      <div className="absolute left-12 top-7">
-        <Badge variant="outline" className={`${color} text-white font-bold py-1 px-3 rounded-full`}>
-          {period}
-        </Badge>
-      </div>
-      
-      <Card className="border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow ml-16">
-        <CardContent className="p-6">
-          <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
-            <div className={`${language === 'ar' ? 'text-right' : ''}`}>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{title}</h3>
-              <p className="text-gray-600 dark:text-gray-400">{subtitle} | {location}</p>
-            </div>
-          </div>
-          
-          {description && description.length > 0 && (
-            <ul className={`${isEducation ? '' : 'list-disc'} ${language === 'ar' ? 'pr-5' : 'pl-5'} space-y-2`}>
-              {description.map((item, index) => (
-                <li key={index} className="text-gray-700 dark:text-gray-300">{item}</li>
-              ))}
-            </ul>
-          )}
-        </CardContent>
-      </Card>
     </div>
   );
 };
 
 interface TimelineProps {
-  items: TimelineItemProps[];
-  isEducation?: boolean;
+  items: Omit<TimelineItemProps, 'position'>[];
 }
 
-const Timeline: React.FC<TimelineProps> = ({ items, isEducation = false }) => {
+const Timeline: React.FC<TimelineProps> = ({ items }) => {
   // Array of timeline item colors
   const colors = [
     'bg-orange-400',
@@ -85,13 +132,18 @@ const Timeline: React.FC<TimelineProps> = ({ items, isEducation = false }) => {
     'bg-cyan-400'
   ];
 
+  // Sort items chronologically
+  const sortedItems = [...items].sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+
   return (
-    <div className="max-w-2xl mx-auto">
-      {items.map((item, index) => (
+    <div className="max-w-6xl mx-auto">
+      {sortedItems.map((item, index) => (
         <TimelineItem 
           key={index}
           {...item}
-          isEducation={isEducation}
+          position={index % 2 === 0 ? 'left' : 'right'}
           color={colors[index % colors.length]}
         />
       ))}

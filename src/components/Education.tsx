@@ -3,7 +3,6 @@ import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ExternalLink } from 'lucide-react';
-import Timeline from './Timeline';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 interface CertificationItemProps {
@@ -47,67 +46,60 @@ const Education = () => {
       title: t('education.degree1.title'),
       subtitle: t('education.degree1.institution'),
       location: t('education.degree1.location'),
-      period: t('education.degree1.period')
+      period: t('education.degree1.period'),
+      type: 'education' as const,
+      date: new Date('2019-01-01') // Adjust with actual graduation date
     },
     {
       title: t('education.degree2.title'),
       subtitle: t('education.degree2.institution'),
       location: t('education.degree2.location'),
-      period: t('education.degree2.period')
+      period: t('education.degree2.period'),
+      type: 'education' as const,
+      date: new Date('2017-01-01') // Adjust with actual graduation date
     },
     {
       title: t('education.degree3.title'),
       subtitle: t('education.degree3.institution'),
       location: t('education.degree3.location'),
-      period: t('education.degree3.period')
+      period: t('education.degree3.period'),
+      type: 'education' as const,
+      date: new Date('2015-01-01') // Adjust with actual graduation date
     }
   ];
 
   const certifications = [
     {
       title: t('certifications.cert1.title'),
-      organization: t('certifications.cert1.organization'),
-      date: t('certifications.cert1.date'),
-      url: "https://certificationcompletion.blob.core.windows.net/certifications/PowerBIBeginnertoProWorkshop-HamzaBouguerra"
+      subtitle: t('certifications.cert1.organization'),
+      location: "",
+      period: t('certifications.cert1.date'),
+      type: 'certification' as const,
+      date: new Date('2022-06-01'), // Adjust with actual certification date
     },
     {
       title: t('certifications.cert2.title'),
-      organization: t('certifications.cert2.organization'),
-      date: t('certifications.cert2.date'),
-      url: "https://www.udemy.com/certificate/UC-7d1fa22b-9e74-48a4-97f0-e6c163e7688e/"
+      subtitle: t('certifications.cert2.organization'),
+      location: "",
+      period: t('certifications.cert2.date'),
+      type: 'certification' as const,
+      date: new Date('2021-09-01'), // Adjust with actual certification date
     },
     {
       title: t('certifications.cert3.title'),
-      organization: t('certifications.cert3.organization'),
-      date: t('certifications.cert3.date'),
-      url: "https://www.udemy.com/certificate/UC-5ac74d9c-6166-4c9e-b05b-689deaf1841b/"
+      subtitle: t('certifications.cert3.organization'),
+      location: "",
+      period: t('certifications.cert3.date'),
+      type: 'certification' as const,
+      date: new Date('2020-07-01'), // Adjust with actual certification date
     }
   ];
 
   return (
     <section id="education" className={`section-padding bg-white dark:bg-gray-800 ${language === 'ar' ? 'rtl' : 'ltr'}`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div>
-            <h2 className="section-subtitle dark:text-white">{t('education.title')}</h2>
-            <Timeline items={education} isEducation={true} />
-          </div>
-          
-          <div>
-            <h2 className="section-subtitle dark:text-white">{t('certifications.title')}</h2>
-            <div>
-              {certifications.map((cert, index) => (
-                <CertificationItem 
-                  key={index}
-                  title={cert.title}
-                  organization={cert.organization}
-                  date={cert.date}
-                  url={cert.url}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
+        <h2 className="section-subtitle dark:text-white">{t('education.title')}</h2>
+        {/* Timeline will be combined in the Index page */}
       </div>
     </section>
   );
