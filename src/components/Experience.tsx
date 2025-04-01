@@ -1,6 +1,9 @@
 
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Building2, Clock, MapPin } from 'lucide-react';
 
 const Experience = () => {
   const { t, language } = useLanguage();
@@ -64,11 +67,59 @@ const Experience = () => {
     }
   ];
 
+  // Sort experiences from newest to oldest
+  const sortedExperiences = [...experiences].sort((a, b) => 
+    b.date.getTime() - a.date.getTime()
+  );
+
   return (
     <section id="experience" className={`section-padding bg-gray-50 dark:bg-gray-900 ${language === 'ar' ? 'rtl' : 'ltr'}`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="section-title dark:text-white">{t('experience.title')}</h2>
-        {/* Timeline will be combined in the Index page */}
+        
+        <div className="grid gap-6 mt-8">
+          {sortedExperiences.map((exp, index) => (
+            <Card key={index} className="border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{exp.title}</h3>
+                    <h4 className="text-blue-500 font-medium">{exp.subtitle}</h4>
+                    
+                    <div className="flex flex-wrap gap-3 mt-2 items-center text-sm text-gray-600 dark:text-gray-400">
+                      {exp.period && (
+                        <div className="flex items-center gap-1">
+                          <Clock className="w-4 h-4" />
+                          <span>{exp.period}</span>
+                        </div>
+                      )}
+                      
+                      {exp.location && (
+                        <div className="flex items-center gap-1">
+                          <MapPin className="w-4 h-4" />
+                          <span>{exp.location}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <Badge className="w-fit bg-blue-500 text-white">
+                    <Building2 className="mr-1 h-3 w-3" /> 
+                    {t('experience.badge')}
+                  </Badge>
+                </div>
+                
+                {exp.description && exp.description.length > 0 && (
+                  <ul className="list-disc pl-5 mt-4 space-y-1">
+                    {exp.description.map((item, idx) => (
+                      <li key={idx} className="text-gray-700 dark:text-gray-300">{item}</li>
+                    ))}
+                  </ul>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
     </section>
   );

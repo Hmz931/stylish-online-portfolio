@@ -12,6 +12,7 @@ import Footer from '@/components/Footer';
 import Timeline from '@/components/Timeline';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
+import { Linkedin, Facebook, Youtube, Twitter, Instagram, FileText } from 'lucide-react';
 
 // Inline Google Analytics component
 const GoogleAnalytics = () => {
@@ -40,7 +41,37 @@ const Index = () => {
     document.documentElement.lang = language;
   }, [language]);
 
-  // Combined timeline data from experience, education, and certifications with accurate dates
+  // Pre-process dates to ensure proper chronological sorting
+  // Convert string dates to Date objects for accurate sorting
+  const parseDate = (dateString) => {
+    if (!dateString) return new Date();
+    
+    // Extract the first date if it's a range (e.g., "Jun 2022 - Present")
+    const firstDate = dateString.split(' - ')[0];
+    
+    // Parse various date formats
+    const parts = firstDate.split(' ');
+    if (parts.length === 2) {
+      // Format: "Jun 2022"
+      const month = {'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5, 
+                     'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11}[parts[0]];
+      const year = parseInt(parts[1]);
+      return new Date(year, month || 0);
+    }
+    return new Date(firstDate);
+  };
+
+  // Custom icons for timeline items
+  const customIcons = {
+    linkedin: <Linkedin className="w-4 h-4 text-white" />,
+    facebook: <Facebook className="w-4 h-4 text-white" />,
+    youtube: <Youtube className="w-4 h-4 text-white" />,
+    twitter: <Twitter className="w-4 h-4 text-white" />,
+    instagram: <Instagram className="w-4 h-4 text-white" />,
+    resume: <FileText className="w-4 h-4 text-white" />
+  };
+
+  // Combined timeline data from experience, education, and certifications
   const timelineItems = [
     // Experience items
     {
@@ -56,7 +87,8 @@ const Index = () => {
         t('experience.job1.task5')
       ],
       type: 'experience' as const,
-      date: new Date('2023-04-01') // April 2023
+      date: new Date('2023-04-01'), // April 2023
+      icon: customIcons.linkedin
     },
     {
       title: t('experience.job2.title'),
@@ -72,7 +104,8 @@ const Index = () => {
         t('experience.job2.task6')
       ],
       type: 'experience' as const,
-      date: new Date('2022-06-01') // June 2022
+      date: new Date('2022-06-01'), // June 2022
+      icon: customIcons.facebook
     },
     {
       title: t('experience.job3.title'),
@@ -83,7 +116,8 @@ const Index = () => {
         t('experience.job3.task1')
       ],
       type: 'experience' as const,
-      date: new Date('2021-09-01') // September 2021
+      date: new Date('2021-09-01'), // September 2021
+      icon: customIcons.youtube
     },
     {
       title: t('experience.job4.title'),
@@ -97,7 +131,8 @@ const Index = () => {
         t('experience.job4.task4')
       ],
       type: 'experience' as const,
-      date: new Date('2020-07-01') // July 2020
+      date: new Date('2020-07-01'), // July 2020
+      icon: customIcons.twitter
     },
     
     // Education items
@@ -108,7 +143,8 @@ const Index = () => {
       period: t('education.degree1.period'),
       description: [],
       type: 'education' as const,
-      date: new Date('2019-06-15') // June 2019 graduation
+      date: new Date('2019-06-15'), // June 2019 graduation
+      icon: customIcons.instagram
     },
     {
       title: t('education.degree2.title'),
@@ -117,7 +153,8 @@ const Index = () => {
       period: t('education.degree2.period'),
       description: [],
       type: 'education' as const,
-      date: new Date('2017-05-30') // May 2017 graduation
+      date: new Date('2017-05-30'), // May 2017 graduation
+      icon: customIcons.resume
     },
     {
       title: t('education.degree3.title'),
@@ -126,7 +163,7 @@ const Index = () => {
       period: t('education.degree3.period'),
       description: [],
       type: 'education' as const,
-      date: new Date('2015-06-30') // June 2015 graduation
+      date: new Date('2015-06-30'), // June 2015 graduation
     },
     
     // Certification items
@@ -168,8 +205,11 @@ const Index = () => {
       <main className="bg-gray-50 dark:bg-gray-900">
         <section id="timeline" className={`section-padding ${language === 'ar' ? 'rtl' : 'ltr'}`}>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="section-title dark:text-white mb-12 text-center text-3xl font-bold tracking-tight">{t('timeline.title')}</h2>
-            <Timeline items={timelineItems} />
+            <Timeline 
+              items={timelineItems} 
+              title={t('timeline.title')} 
+              subtitle={t('timeline.subtitle')} 
+            />
           </div>
         </section>
       </main>
