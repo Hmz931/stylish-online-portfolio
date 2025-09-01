@@ -198,13 +198,20 @@ const Timeline: React.FC<TimelineProps> = ({ items, title = "Timeline", subtitle
     <div className="relative py-10">
       {/* En-tête de la timeline avec le titre */}
       <div className="text-center mb-20">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-gray-100">
-          {title}
-        </h2>
+        <div className="relative inline-block">
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 bg-gradient-primary bg-clip-text text-transparent animate-fade-in">
+            {title}
+          </h2>
+          <div className="absolute -inset-4 bg-gradient-primary opacity-10 rounded-lg blur-xl animate-pulse"></div>
+        </div>
         {subtitle && (
-          <p className="text-lg text-gray-400">{subtitle}</p>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            {subtitle}
+          </p>
         )}
-        <Separator className="max-w-md mx-auto mt-6 bg-gray-800" />
+        <div className="flex justify-center mt-8 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+          <div className="w-24 h-0.5 bg-gradient-primary rounded-full"></div>
+        </div>
       </div>
       
       {/* Contenu de la timeline */}
