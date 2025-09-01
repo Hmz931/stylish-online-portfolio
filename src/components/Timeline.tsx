@@ -59,8 +59,12 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
     }
   };
 
-  // Année extraite de la période
-  const year = new Date(period.split(' - ')[0]).getFullYear();
+  // Année extraite de la période avec parsing plus robuste
+  const extractYear = (period: string) => {
+    const match = period.match(/\d{4}/);
+    return match ? parseInt(match[0]) : new Date().getFullYear();
+  };
+  const year = extractYear(period);
 
   return (
     <div className="relative mb-16 last:mb-0">
@@ -191,7 +195,10 @@ const Timeline: React.FC<TimelineProps> = ({ items, title = "Timeline", subtitle
 
   // Trier les éléments chronologiquement du plus récent au plus ancien
   const sortedItems = [...items].sort((a, b) => {
-    return b.date.getTime() - a.date.getTime();
+    // Conversion des dates en timestamps pour comparaison précise
+    const dateA = new Date(a.date).getTime();
+    const dateB = new Date(b.date).getTime();
+    return dateB - dateA; // Tri décroissant (plus récent en premier)
   });
 
   return (

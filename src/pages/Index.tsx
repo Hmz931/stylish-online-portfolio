@@ -12,7 +12,7 @@ import Footer from '@/components/Footer';
 import Timeline from '@/components/Timeline';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
-import { Linkedin, Facebook, Youtube, Twitter, Instagram, FileText } from 'lucide-react';
+import { Linkedin, Facebook, Youtube, Twitter, Instagram, FileText, Building2, GraduationCap, Award } from 'lucide-react';
 
 // Inline Google Analytics component
 const GoogleAnalytics = () => {
@@ -63,12 +63,13 @@ const Index = () => {
 
   // Custom icons for timeline items
   const customIcons = {
-    linkedin: <Linkedin className="w-4 h-4 text-white" />,
-    facebook: <Facebook className="w-4 h-4 text-white" />,
-    youtube: <Youtube className="w-4 h-4 text-white" />,
-    twitter: <Twitter className="w-4 h-4 text-white" />,
-    instagram: <Instagram className="w-4 h-4 text-white" />,
-    resume: <FileText className="w-4 h-4 text-white" />
+    experience: <Building2 className="w-4 h-4 text-white" />,
+    education: <GraduationCap className="w-4 h-4 text-white" />,
+    certification: <Award className="w-4 h-4 text-white" />,
+    portfolio: <FileText className="w-4 h-4 text-white" />,
+    development: <Building2 className="w-4 h-4 text-white" />,
+    research: <Award className="w-4 h-4 text-white" />,
+    academic: <GraduationCap className="w-4 h-4 text-white" />
   };
 
   // Combined timeline data from experience, education, and certifications
@@ -88,7 +89,7 @@ const Index = () => {
       ],
       type: 'experience' as const,
       date: new Date('2023-04-01'), // April 2023
-      icon: customIcons.linkedin
+      icon: customIcons.development
     },
     {
       title: t('experience.job2.title'),
@@ -105,7 +106,7 @@ const Index = () => {
       ],
       type: 'experience' as const,
       date: new Date('2022-06-01'), // June 2022
-      icon: customIcons.facebook
+      icon: customIcons.experience
     },
     {
       title: t('experience.job3.title'),
@@ -117,7 +118,7 @@ const Index = () => {
       ],
       type: 'experience' as const,
       date: new Date('2021-09-01'), // September 2021
-      icon: customIcons.youtube
+      icon: customIcons.development
     },
     {
       title: t('experience.job4.title'),
@@ -132,7 +133,7 @@ const Index = () => {
       ],
       type: 'experience' as const,
       date: new Date('2020-07-01'), // July 2020
-      icon: customIcons.twitter
+      icon: customIcons.experience
     },
     
     // Education items
@@ -144,7 +145,7 @@ const Index = () => {
       description: [],
       type: 'education' as const,
       date: new Date('2019-06-15'), // June 2019 graduation
-      icon: customIcons.instagram
+      icon: customIcons.academic
     },
     {
       title: t('education.degree2.title'),
@@ -154,7 +155,7 @@ const Index = () => {
       description: [],
       type: 'education' as const,
       date: new Date('2017-05-30'), // May 2017 graduation
-      icon: customIcons.resume
+      icon: customIcons.education
     },
     {
       title: t('education.degree3.title'),
@@ -164,6 +165,7 @@ const Index = () => {
       description: [],
       type: 'education' as const,
       date: new Date('2015-06-30'), // June 2015 graduation
+      icon: customIcons.education
     },
     
     // Certification items
@@ -175,6 +177,7 @@ const Index = () => {
       description: [],
       type: 'certification' as const,
       date: new Date('2022-06-15'), // June 2022 certification
+      icon: customIcons.certification
     },
     {
       title: t('certifications.cert2.title'),
@@ -184,6 +187,7 @@ const Index = () => {
       description: [],
       type: 'certification' as const,
       date: new Date('2021-09-15'), // September 2021 certification
+      icon: customIcons.certification
     },
     {
       title: t('certifications.cert3.title'),
@@ -193,6 +197,7 @@ const Index = () => {
       description: [],
       type: 'certification' as const,
       date: new Date('2020-07-15'), // July 2020 certification
+      icon: customIcons.research
     }
   ];
 
