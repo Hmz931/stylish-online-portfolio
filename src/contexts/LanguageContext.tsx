@@ -1,23 +1,17 @@
-
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
-// Define the available languages
 export type Language = 'fr' | 'en' | 'ar';
 
-// Define the language context type
 type LanguageContextType = {
   language: Language;
   setLanguage: (language: Language) => void;
   t: (key: string) => string;
 };
 
-// Create the context
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-// Define the translations
 const translations: Record<Language, Record<string, string>> = {
   fr: {
-    // Header
     'nav.home': 'Accueil',
     'nav.about': 'À Propos',
     'nav.experience': 'Expérience',
@@ -27,30 +21,28 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.contact': 'Contact',
     'header.darkMode': 'Mode Sombre',
     'header.lightMode': 'Mode Clair',
-    
-    // Hero
+
     'hero.greeting': 'Bonjour, je suis',
-    'hero.description': 'Comptable avec des compétences en finance et programmation. Passionné par le développement de solutions qui font le pont entre l\'analyse financière et la technologie.',
+    'hero.description': 'Comptable avec une expérience en comptabilité suisse et un intérêt croissant pour l\'analyse des données et l\'automatisation des processus. En cours de Master Professionnel en Business Analytics.',
     'hero.contactButton': 'Me Contacter',
     'hero.learnMoreButton': 'En Savoir Plus',
-    
-    // About
+
     'about.title': 'À Propos de Moi',
-    'about.paragraph1': 'Dynamique, ouvert d\'esprit, curieux, apprenant vite et toujours prêt à changer : Je considère ces compétences comme mes points forts. J\'essaie toujours de m\'adapter car je pense que rien n\'est statique dans ce Monde.',
-    'about.paragraph2': 'Je suis titulaire d\'un diplôme de Licence en Finance et un Master en Économétrie et Analyses Quantitatives de l\'École Supérieure de Commerce de Tunis. Maintenant, je travaille en Tunisie en tant que comptable.',
-    'about.paragraph3': 'Être social et entrer en contact avec de nouvelles personnes, de cultures différentes, afin de partager des connaissances et des idées, m\'a toujours apporté de l\'inspiration et de nouvelles façons de penser.',
-    'about.paragraph4': 'Avec une solide expérience en comptabilité et une passion pour la programmation, j\'élargis continuellement mes compétences pour exceller dans ces deux domaines. Mon parcours financier combiné à des compétences techniques dans divers langages de programmation me rend particulièrement efficace dans la création de solutions financières automatisées.',
+    'about.paragraph1': 'Dynamique, ouvert d\'esprit, curieux, apprenant vite et toujours prêt à évoluer : je considère ces qualités comme mes points forts. J\'essaie toujours de m\'adapter car je pense que rien n\'est statique dans ce monde.',
+    'about.paragraph2': 'Je suis titulaire d\'un Master en Économétrie et Analyses Quantitatives de l\'École Supérieure de Commerce de Tunis. Je poursuis actuellement un Master Professionnel en Business Analytics à Esprit Business School (programme du soir, 2025–2027).',
+    'about.paragraph3': 'Être social et entrer en contact avec des personnes de cultures différentes pour partager des connaissances et des idées m\'a toujours apporté inspiration et nouvelles façons de penser.',
+    'about.paragraph4': 'Je développe des compétences en Power BI, scripting Python et intégration de données ERP pour améliorer le reporting financier et l\'efficacité opérationnelle. J\'ai également développé un outil web pour faciliter l\'import structuré d\'écritures comptables depuis Excel vers l\'ERP Abacus.',
     'about.personalInfo': 'Informations Personnelles',
     'about.name': 'Nom',
     'about.location': 'Emplacement',
     'about.email': 'E-mail',
     'about.phone': 'Téléphone',
     'about.interests': 'Intérêts Professionnels',
-    'about.interest1': 'Analyse Financière',
+    'about.interest1': 'Business Intelligence & Power BI',
     'about.interest2': 'Analyse de Données',
-    'about.interest3': 'Développement Web',
-    'about.interest4': 'Automatisation des Processus',
-    'about.interest5': 'Modélisation Économétrique',
+    'about.interest3': 'Automatisation des Processus Comptables',
+    'about.interest4': 'Développement Web',
+    'about.interest5': 'Intégration ERP',
     'about.languages': 'Langues',
     'about.arabic': 'Arabe',
     'about.french': 'Français',
@@ -58,101 +50,102 @@ const translations: Record<Language, Record<string, string>> = {
     'about.native': 'Langue Maternelle',
     'about.advanced': 'Avancé',
     'about.intermediate': 'Intermédiaire',
-    
-    // Experience
+
     'experience.title': 'Expérience Professionnelle',
+    'experience.badge': 'Expérience',
     'experience.job1.title': 'Comptable',
     'experience.job1.company': 'UB Services',
-    'experience.job1.location': 'Centre Urbain Nord, Ariana, Tunisie',
+    'experience.job1.location': 'Ariana, Tunisie',
     'experience.job1.period': 'Avr 2021 - Présent',
-    'experience.job1.task1': 'Saisie et enregistrement précis des transactions financières, telles que ventes, achats, dépenses et recettes, dans le système comptable, en suivant les normes comptables suisses.',
-    'experience.job1.task2': 'Analyse et vérification des comptes, réconciliation des soldes, préparation des écritures de clôture et présentation aux autorités fiscales et aux parties prenantes.',
-    'experience.job1.task3': 'Maintien des archives électroniques organisées avec un système de gestion électronique des documents (GED) pour faciliter la traçabilité et la vérification.',
-    'experience.job1.task4': 'Identification des opportunités d\'automatisation des processus comptables pour améliorer l\'efficacité opérationnelle et réduire les erreurs.',
-    'experience.job1.task5': 'Formation des nouveaux employés en comptabilité suisse, en maîtrise du logiciel comptable et en techniques informatiques disponibles.',
-    
-    'experience.job2.title': 'Assistant comptable',
+    'experience.job1.task1': 'Saisie des transactions financières conformément aux normes comptables suisses.',
+    'experience.job1.task2': 'Rapprochements de comptes, assistance aux clôtures mensuelles et annuelles.',
+    'experience.job1.task3': 'Développement de tableaux de bord Power BI pour le suivi financier interne : répartition des charges, suivi de trésorerie, et suivi du recouvrement.',
+    'experience.job1.task4': 'Support aux initiatives d\'automatisation via des scripts Python pour les tâches comptables répétitives.',
+    'experience.job1.task5': 'Extraction de données comptables depuis l\'ERP Abacus via les web services SOAP (AbaConnect) et développement d\'un outil web pour l\'import structuré d\'écritures depuis Excel (hébergé sur Netlify).',
+    'experience.job1.task6': 'Formation des nouveaux employés aux procédures comptables et aux outils internes.',
+
+    'experience.job2.title': 'Assistant Comptable',
     'experience.job2.company': 'Manpower',
-    'experience.job2.location': 'Les berges du lac 1, Tunis, Tunisie',
+    'experience.job2.location': 'Tunis, Tunisie',
     'experience.job2.period': 'Fév 2018 - Déc 2018',
-    'experience.job2.task1': 'Comptabilisation des factures clients et fournisseurs.',
-    'experience.job2.task2': 'Lettrage des comptes et rapprochement bancaire.',
-    'experience.job2.task3': 'Déclaration fiscale mensuelle.',
-    'experience.job2.task4': 'Déclaration CNSS trimestrielle.',
-    'experience.job2.task5': 'Vérification, comptabilisation et remboursement des notes de frais des employés.',
-    'experience.job2.task6': 'Assistance lors de l\'audit comptable en rassemblant les documents requis et en répondant aux demandes de l\'auditeur.',
-    
-    'experience.job3.title': 'Comptable stagiaire',
-    'experience.job3.company': 'Maghreb Conseil et Audit (MCA)',
-    'experience.job3.location': 'Centre Urbain Nord, Ariana, Tunisie',
+    'experience.job2.task1': 'Saisie des factures fournisseurs et clients.',
+    'experience.job2.task2': 'Rapprochements bancaires et lettrage des comptes.',
+    'experience.job2.task3': 'Assistance à la préparation des déclarations fiscales.',
+    'experience.job2.task4': '',
+    'experience.job2.task5': '',
+    'experience.job2.task6': '',
+
+    'experience.job3.title': 'Stagiaire Comptable',
+    'experience.job3.company': 'Maghreb Conseil et Audit',
+    'experience.job3.location': 'Ariana, Tunisie',
     'experience.job3.period': 'Juil 2017 - Sep 2017',
-    'experience.job3.task1': 'Comptabilisation des factures clients et fournisseurs.',
-    
-    'experience.job4.title': 'Agent logistique et de stock',
+    'experience.job3.task1': 'Stage en cabinet d\'audit et d\'expertise comptable.',
+
+    'experience.job4.title': 'Agent Logistique et de Stock',
     'experience.job4.company': 'Groupe SOTEFI (SELECTA)',
     'experience.job4.location': 'La Soukra, Ariana, Tunisie',
     'experience.job4.period': 'Fév 2014 - Juil 2014',
-    'experience.job4.task1': 'Contrôle qualitatif et quantitatif rigoureux des marchandises réceptionnées.',
-    'experience.job4.task2': 'Optimisation de l\'organisation de l\'espace de stockage pour faciliter les déplacements des manutentionnaires.',
-    'experience.job4.task3': 'Gestion des stocks en appliquant la méthode FIFO (Premier Entré, Premier Sorti).',
-    'experience.job4.task4': 'Organisation du stock en fonction des classes et des familles de produits pour une meilleure gestion.',
-    
-    // Education
+    'experience.job4.task1': 'Contrôle qualitatif et quantitatif des marchandises réceptionnées.',
+    'experience.job4.task2': 'Gestion des stocks par la méthode FIFO.',
+    'experience.job4.task3': '',
+    'experience.job4.task4': '',
+
     'education.title': 'Formation',
+    'education.badge': 'Diplôme',
+    'education.degree0.title': 'Master Professionnel en Business Analytics (Programme du soir)',
+    'education.degree0.institution': 'Esprit Business School',
+    'education.degree0.location': 'Tunis',
+    'education.degree0.period': 'Sep 2025 – Prévu 2027',
+
     'education.degree1.title': 'Master en Économétrie et Analyses Quantitatives',
     'education.degree1.institution': 'École Supérieure de Commerce',
     'education.degree1.location': 'Tunis',
     'education.degree1.period': '2019 - 2021',
-    
+
     'education.degree2.title': 'Licence en Sciences de Gestion – Spécialité Finance',
     'education.degree2.institution': 'École Supérieure de Commerce',
     'education.degree2.location': 'Tunis',
     'education.degree2.period': '2013 - 2017',
-    
-    'education.degree3.title': 'Baccalauréat Économie/Gestion',
-    'education.degree3.institution': 'Lycée Dar Fadhal, La Soukra',
-    'education.degree3.location': 'Ariana',
-    'education.degree3.period': '2013',
-    
-    // Certifications
+
     'certifications.title': 'Certifications',
+    'certifications.badge': 'Certification',
     'certifications.cert1.title': 'Power BI Beginner to Pro Workshop',
     'certifications.cert1.organization': 'Pragmatic Works',
     'certifications.cert1.date': 'Fév 2025',
-    
+
     'certifications.cert2.title': 'The Complete 2024 Web Development Bootcamp',
     'certifications.cert2.organization': 'Udemy',
     'certifications.cert2.date': 'Mai 2024',
-    
+
     'certifications.cert3.title': 'The Complete Web Developer in 2023: Zero to Mastery',
     'certifications.cert3.organization': 'Udemy',
     'certifications.cert3.date': 'Mars 2023',
-    
-    // Skills
+
     'skills.title': 'Compétences',
-    'skills.software': 'Logiciels',
+    'skills.software': 'Logiciels & ERP',
+    'skills.bi': 'Business Intelligence',
     'skills.programming': 'Langages de Programmation',
     'skills.webDevelopment': 'Développement Web',
     'skills.dataAnalysis': 'Analyse de Données',
     'skills.continuousLearning': 'Je suis constamment en train d\'apprendre et d\'améliorer mes compétences dans ces domaines.',
-    
-    // Projects
+
     'projects.title': 'Mes Projets',
     'projects.subtitle': 'Découvrez mes dernières créations',
     'projects.viewLive': 'Voir le site',
     'projects.viewCode': 'Voir le Code',
     'projects.portfolio': 'Portfolio Personnel',
     'projects.portfolioDesc': 'Mon site web personnel construit avec React, TypeScript et Tailwind CSS.',
+    'projects.abacusImport': 'Outil Import Abacus ERP',
+    'projects.abacusImportDesc': 'Outil web pour l\'import structuré d\'écritures comptables depuis Excel vers l\'ERP Abacus via AbaConnect. Hébergé sur Netlify.',
     'projects.otherProjects': 'Plus de projets à venir...',
-    
-    // Contact
+
     'contact.title': 'Me Contacter',
-    
-    // Footer
     'footer.rights': 'Tous droits réservés.',
+
+    'timeline.title': 'Parcours',
+    'timeline.subtitle': 'Mon évolution professionnelle et académique',
   },
   en: {
-    // Header
     'nav.home': 'Home',
     'nav.about': 'About',
     'nav.experience': 'Experience',
@@ -162,30 +155,28 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.contact': 'Contact',
     'header.darkMode': 'Dark Mode',
     'header.lightMode': 'Light Mode',
-    
-    // Hero
+
     'hero.greeting': 'Hello, I\'m',
-    'hero.description': 'Accountant with skills in both finance and programming. Passionate about bridging the gap between financial analysis and technology.',
+    'hero.description': 'Accountant with experience in Swiss accounting and a growing interest in business analytics and process automation. Currently pursuing a Professional Master\'s in Business Analytics.',
     'hero.contactButton': 'Contact Me',
     'hero.learnMoreButton': 'Learn More',
-    
-    // About
+
     'about.title': 'About Me',
-    'about.paragraph1': 'Dynamic, open-minded, curious, quick learner, and always ready to change: I consider these skills as my strengths. I always try to adapt because I believe nothing is static in this world.',
-    'about.paragraph2': 'I hold a Bachelor\'s degree in Finance and a Master\'s degree in Econometrics and Quantitative Analysis from the École Supérieure de Commerce de Tunis. Currently, I work as an accountant in Tunisia.',
+    'about.paragraph1': 'Dynamic, open-minded, curious, quick learner, and always ready to evolve: I consider these qualities as my strengths. I always try to adapt because I believe nothing is static in this world.',
+    'about.paragraph2': 'I hold a Master\'s in Econometrics and Quantitative Analysis from École Supérieure de Commerce de Tunis. I am currently pursuing a Professional Master\'s in Business Analytics at Esprit Business School (evening program, 2025–2027).',
     'about.paragraph3': 'Socializing and meeting new people from different cultures to share knowledge and ideas has always brought me inspiration and new ways of thinking.',
-    'about.paragraph4': 'With solid experience in accounting and a passion for programming, I am continually expanding my skillset to excel in both fields. My background in finance combined with technical skills in various programming languages makes me particularly effective at creating automated financial solutions.',
+    'about.paragraph4': 'I am developing skills in Power BI, Python scripting, and ERP data integration to improve financial reporting and operational efficiency. I also developed a web tool to facilitate structured import of accounting entries from Excel into Abacus ERP.',
     'about.personalInfo': 'Personal Info',
     'about.name': 'Name',
     'about.location': 'Location',
     'about.email': 'Email',
     'about.phone': 'Phone',
     'about.interests': 'Professional Interests',
-    'about.interest1': 'Financial Analysis',
+    'about.interest1': 'Business Intelligence & Power BI',
     'about.interest2': 'Data Analytics',
-    'about.interest3': 'Web Development',
-    'about.interest4': 'Process Automation',
-    'about.interest5': 'Econometric Modeling',
+    'about.interest3': 'Accounting Process Automation',
+    'about.interest4': 'Web Development',
+    'about.interest5': 'ERP Integration',
     'about.languages': 'Languages',
     'about.arabic': 'Arabic',
     'about.french': 'French',
@@ -193,101 +184,102 @@ const translations: Record<Language, Record<string, string>> = {
     'about.native': 'Native Language',
     'about.advanced': 'Advanced',
     'about.intermediate': 'Intermediate',
-    
-    // Experience
+
     'experience.title': 'Work Experience',
+    'experience.badge': 'Experience',
     'experience.job1.title': 'Accountant',
     'experience.job1.company': 'UB Services',
-    'experience.job1.location': 'Centre Urbain Nord, Ariana, Tunisia',
+    'experience.job1.location': 'Ariana, Tunisia',
     'experience.job1.period': 'Apr 2021 - Present',
-    'experience.job1.task1': 'Accurately record financial transactions such as sales, purchases, expenses, and revenues in the accounting system, following Swiss accounting standards.',
-    'experience.job1.task2': 'Analyze and verify accounts, reconcile balances, prepare closing entries, and ensure that accounts are ready for presentation to tax authorities and stakeholders.',
-    'experience.job1.task3': 'Maintain organized electronic archives with an Electronic Document Management System (EDMS) to facilitate traceability and verification.',
-    'experience.job1.task4': 'Identify opportunities for automating accounting processes to improve operational efficiency and reduce errors.',
-    'experience.job1.task5': 'Train new employees in Swiss accounting, accounting software, and available IT techniques.',
-    
+    'experience.job1.task1': 'Record financial transactions in accordance with Swiss accounting standards.',
+    'experience.job1.task2': 'Perform account reconciliations, assist with monthly and annual closings.',
+    'experience.job1.task3': 'Develop Power BI dashboards for internal financial monitoring: expense distribution, cash & treasury follow-up, and revenue collection tracking.',
+    'experience.job1.task4': 'Support automation initiatives using Python scripts for repetitive accounting tasks.',
+    'experience.job1.task5': 'Extract accounting data from Abacus ERP using SOAP web services (AbaConnect) and developed a web tool for structured import of accounting entries from Excel into Abacus ERP (hosted on Netlify).',
+    'experience.job1.task6': 'Train new employees on accounting procedures and internal tools.',
+
     'experience.job2.title': 'Accounting Assistant',
     'experience.job2.company': 'Manpower',
-    'experience.job2.location': 'Les berges du lac 1, Tunis, Tunisia',
+    'experience.job2.location': 'Tunis, Tunisia',
     'experience.job2.period': 'Feb 2018 - Dec 2018',
-    'experience.job2.task1': 'Recording client and supplier invoices.',
-    'experience.job2.task2': 'Reconciling accounts and bank statements.',
-    'experience.job2.task3': 'Monthly tax declarations.',
-    'experience.job2.task4': 'Quarterly CNSS declarations.',
-    'experience.job2.task5': 'Verification, recording, and reimbursement of employee expense reports.',
-    'experience.job2.task6': 'Assist with accounting audits by gathering required documents and responding to auditor requests.',
-    
+    'experience.job2.task1': 'Record supplier and customer invoices.',
+    'experience.job2.task2': 'Perform bank and account reconciliations.',
+    'experience.job2.task3': 'Assist in preparation of tax declarations.',
+    'experience.job2.task4': '',
+    'experience.job2.task5': '',
+    'experience.job2.task6': '',
+
     'experience.job3.title': 'Accounting Intern',
-    'experience.job3.company': 'Maghreb Conseil et Audit (MCA)',
-    'experience.job3.location': 'Centre Urbain Nord, Ariana, Tunisia',
+    'experience.job3.company': 'Maghreb Conseil et Audit',
+    'experience.job3.location': 'Ariana, Tunisia',
     'experience.job3.period': 'Jul 2017 - Sep 2017',
-    'experience.job3.task1': 'Recording client and supplier invoices.',
-    
-    'experience.job4.title': 'Logistics and Inventory Agent',
+    'experience.job3.task1': 'Internship at an audit and accounting firm.',
+
+    'experience.job4.title': 'Logistics & Inventory Agent',
     'experience.job4.company': 'Groupe SOTEFI (SELECTA)',
     'experience.job4.location': 'La Soukra, Ariana, Tunisia',
     'experience.job4.period': 'Feb 2014 - Jul 2014',
-    'experience.job4.task1': 'Ensure strict qualitative and quantitative control of received goods.',
-    'experience.job4.task2': 'Optimize storage space organization to facilitate handling.',
-    'experience.job4.task3': 'Manage inventory using the FIFO (First In, First Out) method.',
-    'experience.job4.task4': 'Organize stock by class and product families for better management.',
-    
-    // Education
+    'experience.job4.task1': 'Qualitative and quantitative control of received goods.',
+    'experience.job4.task2': 'Inventory management using the FIFO method.',
+    'experience.job4.task3': '',
+    'experience.job4.task4': '',
+
     'education.title': 'Education',
+    'education.badge': 'Degree',
+    'education.degree0.title': 'Professional Master in Business Analytics (Evening Program)',
+    'education.degree0.institution': 'Esprit Business School',
+    'education.degree0.location': 'Tunis',
+    'education.degree0.period': 'Sep 2025 – Expected 2027',
+
     'education.degree1.title': 'Master\'s in Econometrics and Quantitative Analysis',
     'education.degree1.institution': 'École Supérieure de Commerce',
     'education.degree1.location': 'Tunis',
     'education.degree1.period': '2019 - 2021',
-    
+
     'education.degree2.title': 'Bachelor\'s in Management Science – Finance Specialization',
     'education.degree2.institution': 'École Supérieure de Commerce',
     'education.degree2.location': 'Tunis',
     'education.degree2.period': '2013 - 2017',
-    
-    'education.degree3.title': 'Baccalaureate in Economics/Management',
-    'education.degree3.institution': 'Lycée Dar Fadhal, La Soukra',
-    'education.degree3.location': 'Ariana',
-    'education.degree3.period': '2013',
-    
-    // Certifications
+
     'certifications.title': 'Certifications',
+    'certifications.badge': 'Certificate',
     'certifications.cert1.title': 'Power BI Beginner to Pro Workshop',
     'certifications.cert1.organization': 'Pragmatic Works',
     'certifications.cert1.date': 'Feb 2025',
-    
+
     'certifications.cert2.title': 'The Complete 2024 Web Development Bootcamp',
     'certifications.cert2.organization': 'Udemy',
     'certifications.cert2.date': 'May 2024',
-    
+
     'certifications.cert3.title': 'The Complete Web Developer in 2023: Zero to Mastery',
     'certifications.cert3.organization': 'Udemy',
     'certifications.cert3.date': 'Mar 2023',
-    
-    // Skills
+
     'skills.title': 'Skills',
-    'skills.software': 'Software',
+    'skills.software': 'Software & ERP',
+    'skills.bi': 'Business Intelligence',
     'skills.programming': 'Programming Languages',
     'skills.webDevelopment': 'Web Development',
     'skills.dataAnalysis': 'Data Analysis',
     'skills.continuousLearning': 'I am constantly learning and improving my skills in these areas.',
-    
-    // Projects
+
     'projects.title': 'My Projects',
     'projects.subtitle': 'Check out my latest work',
     'projects.viewLive': 'View Live',
     'projects.viewCode': 'View Code',
     'projects.portfolio': 'Personal Portfolio',
     'projects.portfolioDesc': 'My personal website built with React, TypeScript, and Tailwind CSS.',
+    'projects.abacusImport': 'Abacus ERP Import Tool',
+    'projects.abacusImportDesc': 'A web tool to facilitate structured import of accounting entries from Excel into Abacus ERP via AbaConnect SOAP web services. Hosted on Netlify.',
     'projects.otherProjects': 'More projects coming soon...',
-    
-    // Contact
+
     'contact.title': 'Contact Me',
-    
-    // Footer
     'footer.rights': 'All rights reserved.',
+
+    'timeline.title': 'Timeline',
+    'timeline.subtitle': 'My professional and academic journey',
   },
   ar: {
-    // Header - RTL language
     'nav.home': 'الرئيسية',
     'nav.about': 'نبذة عني',
     'nav.experience': 'الخبرة',
@@ -297,30 +289,28 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.contact': 'اتصل بي',
     'header.darkMode': 'الوضع المظلم',
     'header.lightMode': 'الوضع المضيء',
-    
-    // Hero
+
     'hero.greeting': 'مرحباً، أنا',
-    'hero.description': 'محاسب لديه مهارات في المالية والبرمجة. شغوف بالجمع بين التحليل المالي والتكنولوجيا.',
+    'hero.description': 'محاسب بخبرة في المحاسبة السويسرية واهتمام متنامٍ بتحليل الأعمال وأتمتة العمليات. أتابع حالياً ماجستيراً مهنياً في تحليل الأعمال.',
     'hero.contactButton': 'اتصل بي',
     'hero.learnMoreButton': 'اعرف المزيد',
-    
-    // About
+
     'about.title': 'نبذة عني',
-    'about.paragraph1': 'ديناميكي، منفتح الذهن، فضولي، سريع التعلم، ودائماً مستعد للتغيير: أعتبر هذه المهارات من نقاط قوتي. أحاول دائماً التكيف لأنني أؤمن بأن لا شيء ثابت في هذا العالم.',
-    'about.paragraph2': 'أنا حاصل على درجة البكالوريوس في المالية ودرجة الماجستير في القياس الاقتصادي والتحليل الكمي من المدرسة العليا للتجارة في تونس. حالياً، أعمل كمحاسب في تونس.',
-    'about.paragraph3': 'الاختلاط ولقاء أشخاص جدد من ثقافات مختلفة لتبادل المعرفة والأفكار، كان دائماً يجلب لي الإلهام وطرق جديدة للتفكير.',
-    'about.paragraph4': 'مع خبرة قوية في المحاسبة وشغف بالبرمجة، أقوم باستمرار بتوسيع مهاراتي للتفوق في كلا المجالين. خلفيتي في المالية مع المهارات التقنية في مختلف لغات البرمجة تجعلني فعالاً بشكل خاص في إنشاء حلول مالية آلية.',
+    'about.paragraph1': 'ديناميكي، منفتح الذهن، فضولي، سريع التعلم، ودائماً مستعد للتطور: أعتبر هذه الصفات من نقاط قوتي.',
+    'about.paragraph2': 'حاصل على ماجستير في القياس الاقتصادي والتحليل الكمي من المدرسة العليا للتجارة بتونس. أتابع حالياً ماجستيراً مهنياً في تحليل الأعمال بمدرسة إسبريت للأعمال (برنامج مسائي، 2025–2027).',
+    'about.paragraph3': 'التواصل مع أشخاص من ثقافات مختلفة لتبادل المعرفة والأفكار كان دائماً مصدراً للإلهام وطرق تفكير جديدة.',
+    'about.paragraph4': 'أطور مهاراتي في Power BI وبرمجة Python وتكامل بيانات ERP لتحسين التقارير المالية والكفاءة التشغيلية. طورت أيضاً أداة ويب لاستيراد القيود المحاسبية من Excel إلى ERP Abacus.',
     'about.personalInfo': 'معلومات شخصية',
     'about.name': 'الاسم',
     'about.location': 'الموقع',
     'about.email': 'البريد الإلكتروني',
     'about.phone': 'الهاتف',
     'about.interests': 'الاهتمامات المهنية',
-    'about.interest1': 'التحليل المالي',
+    'about.interest1': 'ذكاء الأعمال و Power BI',
     'about.interest2': 'تحليل البيانات',
-    'about.interest3': 'تطوير الويب',
-    'about.interest4': 'أتمتة العمليات',
-    'about.interest5': 'النمذجة الاقتصادية',
+    'about.interest3': 'أتمتة العمليات المحاسبية',
+    'about.interest4': 'تطوير الويب',
+    'about.interest5': 'تكامل أنظمة ERP',
     'about.languages': 'اللغات',
     'about.arabic': 'العربية',
     'about.french': 'الفرنسية',
@@ -328,108 +318,108 @@ const translations: Record<Language, Record<string, string>> = {
     'about.native': 'اللغة الأم',
     'about.advanced': 'متقدم',
     'about.intermediate': 'متوسط',
-    
-    // Experience
+
     'experience.title': 'الخبرة المهنية',
+    'experience.badge': 'خبرة',
     'experience.job1.title': 'محاسب',
     'experience.job1.company': 'يو بي سيرفيس',
-    'experience.job1.location': 'المركز العمراني الشمالي، أريانة، تونس',
+    'experience.job1.location': 'أريانة، تونس',
     'experience.job1.period': 'أبريل 2021 - الحالي',
-    'experience.job1.task1': 'تسجيل المعاملات المالية بدقة مثل المبيعات والمشتريات والنفقات والإيرادات في النظام المحاسبي، باتباع معايير المحاسبة السويسرية.',
-    'experience.job1.task2': 'تحليل وتدقيق الحسابات، تسوية الأرصدة، إعداد قيود الإغلاق، والتأكد من جاهزية الحسابات للتقديم إلى السلطات الضريبية وأصحاب المصلحة.',
-    'experience.job1.task3': 'الحفاظ على أرشيف إلكتروني منظم باستخدام نظام إدارة المستندات الإلكترونية لتسهيل التتبع والتحقق.',
-    'experience.job1.task4': 'تحديد فرص أتمتة العمليات المحاسبية لتحسين الكفاءة التشغيلية وتقليل الأخطاء.',
-    'experience.job1.task5': 'تدريب الموظفين الجدد على المحاسبة السويسرية، وبرامج المحاسبة، والتقنيات المعلوماتية المتاحة.',
-    
+    'experience.job1.task1': 'تسجيل المعاملات المالية وفق المعايير المحاسبية السويسرية.',
+    'experience.job1.task2': 'التسويات الحسابية والمساعدة في الإقفالات الشهرية والسنوية.',
+    'experience.job1.task3': 'تطوير لوحات تحكم Power BI لمتابعة الأداء المالي الداخلي.',
+    'experience.job1.task4': 'دعم مبادرات الأتمتة باستخدام سكريبتات Python للمهام المحاسبية المتكررة.',
+    'experience.job1.task5': 'استخراج البيانات المحاسبية من ERP Abacus عبر خدمات SOAP (AbaConnect) وتطوير أداة ويب لاستيراد القيود من Excel.',
+    'experience.job1.task6': 'تدريب الموظفين الجدد على الإجراءات المحاسبية والأدوات الداخلية.',
+
     'experience.job2.title': 'مساعد محاسب',
     'experience.job2.company': 'مانباور',
-    'experience.job2.location': 'ضفاف البحيرة 1، تونس، تونس',
+    'experience.job2.location': 'تونس، تونس',
     'experience.job2.period': 'فبراير 2018 - ديسمبر 2018',
-    'experience.job2.task1': 'تسجيل فواتير العملاء والموردين.',
-    'experience.job2.task2': 'تسوية الحسابات وكشوف البنوك.',
-    'experience.job2.task3': 'الإقرارات الضريبية الشهرية.',
-    'experience.job2.task4': 'إقرارات الضمان الاجتماعي الفصلية.',
-    'experience.job2.task5': 'التحقق وتسجيل وسداد تقارير نفقات الموظفين.',
-    'experience.job2.task6': 'المساعدة في عمليات التدقيق المحاسبي من خلال جمع المستندات المطلوبة والرد على استفسارات المدقق.',
-    
+    'experience.job2.task1': 'تسجيل فواتير الموردين والعملاء.',
+    'experience.job2.task2': 'التسويات البنكية والحسابية.',
+    'experience.job2.task3': 'المساعدة في إعداد التصاريح الجبائية.',
+    'experience.job2.task4': '',
+    'experience.job2.task5': '',
+    'experience.job2.task6': '',
+
     'experience.job3.title': 'متدرب محاسبة',
     'experience.job3.company': 'المغرب للاستشارات والتدقيق',
-    'experience.job3.location': 'المركز العمراني الشمالي، أريانة، تونس',
+    'experience.job3.location': 'أريانة، تونس',
     'experience.job3.period': 'يوليو 2017 - سبتمبر 2017',
-    'experience.job3.task1': 'تسجيل فواتير العملاء والموردين.',
-    
+    'experience.job3.task1': 'تدريب في مكتب التدقيق والمحاسبة.',
+
     'experience.job4.title': 'مسؤول لوجستيات ومخزون',
     'experience.job4.company': 'مجموعة سوتيفي (سيلكتا)',
     'experience.job4.location': 'السكرة، أريانة، تونس',
     'experience.job4.period': 'فبراير 2014 - يوليو 2014',
-    'experience.job4.task1': 'ضمان رقابة نوعية وكمية صارمة على البضائع المستلمة.',
-    'experience.job4.task2': 'تحسين تنظيم مساحة التخزين لتسهيل المناولة.',
-    'experience.job4.task3': 'إدارة المخزون باستخدام طريقة الوارد أولاً يصرف أولاً (FIFO).',
-    'experience.job4.task4': 'تنظيم المخزون حسب الفئة وعائلات المنتجات للإدارة الأفضل.',
-    
-    // Education
+    'experience.job4.task1': 'الرقابة النوعية والكمية على البضائع المستلمة.',
+    'experience.job4.task2': 'إدارة المخزون بطريقة الوارد أولاً يصرف أولاً.',
+    'experience.job4.task3': '',
+    'experience.job4.task4': '',
+
     'education.title': 'التعليم',
+    'education.badge': 'شهادة',
+    'education.degree0.title': 'ماجستير مهني في تحليل الأعمال (برنامج مسائي)',
+    'education.degree0.institution': 'مدرسة إسبريت للأعمال',
+    'education.degree0.location': 'تونس',
+    'education.degree0.period': 'سبتمبر 2025 – متوقع 2027',
+
     'education.degree1.title': 'ماجستير في الاقتصاد القياسي والتحليل الكمي',
     'education.degree1.institution': 'المدرسة العليا للتجارة',
     'education.degree1.location': 'تونس',
     'education.degree1.period': '2019 - 2021',
-    
+
     'education.degree2.title': 'بكالوريوس في علوم الإدارة - تخصص مالية',
     'education.degree2.institution': 'المدرسة العليا للتجارة',
     'education.degree2.location': 'تونس',
     'education.degree2.period': '2013 - 2017',
-    
-    'education.degree3.title': 'البكالوريا في الاقتصاد/الإدارة',
-    'education.degree3.institution': 'معهد دار الفضل، السكرة',
-    'education.degree3.location': 'أريانة',
-    'education.degree3.period': '2013',
-    
-    // Certifications
+
     'certifications.title': 'الشهادات',
-    'certifications.cert1.title': 'ورشة عمل Power BI من المبتدئ إلى المحترف',
+    'certifications.badge': 'شهادة',
+    'certifications.cert1.title': 'ورشة Power BI من المبتدئ إلى المحترف',
     'certifications.cert1.organization': 'براغماتيك ووركس',
     'certifications.cert1.date': 'فبراير 2025',
-    
-    'certifications.cert2.title': 'دورة تطوير الويب الكاملة لعام 2024',
+
+    'certifications.cert2.title': 'دورة تطوير الويب الكاملة 2024',
     'certifications.cert2.organization': 'يوديمي',
     'certifications.cert2.date': 'مايو 2024',
-    
-    'certifications.cert3.title': 'مطور الويب الكامل في 2023: من الصفر إلى الاحتراف',
+
+    'certifications.cert3.title': 'مطور الويب الكامل 2023: من الصفر إلى الاحتراف',
     'certifications.cert3.organization': 'يوديمي',
     'certifications.cert3.date': 'مارس 2023',
-    
-    // Skills
+
     'skills.title': 'المهارات',
-    'skills.software': 'البرمجيات',
+    'skills.software': 'البرمجيات وأنظمة ERP',
+    'skills.bi': 'ذكاء الأعمال',
     'skills.programming': 'لغات البرمجة',
     'skills.webDevelopment': 'تطوير الويب',
     'skills.dataAnalysis': 'تحليل البيانات',
-    'skills.continuousLearning': 'أنا في حالة تعلم وتحسين مستمر لمهاراتي في هذه المجالات.',
-    
-    // Projects
+    'skills.continuousLearning': 'أنا في تعلم وتحسين مستمر لمهاراتي في هذه المجالات.',
+
     'projects.title': 'مشاريعي',
     'projects.subtitle': 'تعرف على أحدث أعمالي',
     'projects.viewLive': 'عرض الموقع',
     'projects.viewCode': 'عرض الكود',
     'projects.portfolio': 'الموقع الشخصي',
     'projects.portfolioDesc': 'موقعي الشخصي مبني باستخدام React و TypeScript و Tailwind CSS.',
+    'projects.abacusImport': 'أداة استيراد Abacus ERP',
+    'projects.abacusImportDesc': 'أداة ويب لاستيراد القيود المحاسبية من Excel إلى ERP Abacus عبر AbaConnect.',
     'projects.otherProjects': 'المزيد من المشاريع قريباً...',
-    
-    // Contact
+
     'contact.title': 'اتصل بي',
-    
-    // Footer
     'footer.rights': 'جميع الحقوق محفوظة.',
+
+    'timeline.title': 'المسار الزمني',
+    'timeline.subtitle': 'رحلتي المهنية والأكاديمية',
   }
 };
 
-// Create the provider
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>('fr'); // Default language is French
+  const [language, setLanguage] = useState<Language>('fr');
 
-  // Translate function
   const t = (key: string): string => {
-    return translations[language][key] || key; // Return the key if translation is not found
+    return translations[language][key] || key;
   };
 
   return (
@@ -439,7 +429,6 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   );
 };
 
-// Custom hook to use the language context
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
   if (context === undefined) {
