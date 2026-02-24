@@ -23,7 +23,7 @@ const Projects = () => {
       description: t('projects.abacusImportDesc'),
       image: '/placeholder.svg',
       liveUrl: 'https://exceltoabacus.netlify.app/',
-      githubUrl: 'https://github.com/Hmz931',
+      githubUrl: 'https://github.com/Hmz931/exceltoabacus',
       technologies: ['JavaScript', 'AbaConnect', 'SOAP', 'Excel', 'Netlify'],
     },
     {
